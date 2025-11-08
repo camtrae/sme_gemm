@@ -19,7 +19,7 @@ This project demonstrates the performance benefits of ARM's Scalable Matrix Exte
 - **Chip**: Apple M4 (ARMv9-A with SME2)
 - **Architecture**: arm64
 - **Instruction Set**: ARM Scalable Matrix Extension 2 (SME2)
-- **Vector Length**: 128-bit (16 × 32-bit floats)
+- **Vector Length**: 512-bit (16 × 32-bit floats)
 
 ## 📊 Performance Results
 
