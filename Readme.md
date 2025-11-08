@@ -2,7 +2,7 @@
 
 High-performance matrix multiplication implementation using ARM Scalable Matrix Extension 2 (SME2) on Apple Silicon M4, demonstrating comprehensive optimization strategies with up to **502× speedup**.
 
-![SME Performance Analysis](sme_matmul_performance.png)
+![SME Performance Analysis](sme_matmul_performance_hires.png)
 
 ## 🎯 Overview
 
