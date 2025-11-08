@@ -44,7 +44,7 @@ Performance comparison on Mac mini M4 (256×256×256 matrices):
 
 ### Prerequisites
 
-- **Apple Silicon Mac** with M4 chip (or M3 with SME2 support)
+- **Apple Silicon Mac** with M4 chip
 - **macOS Sonoma 14.0+** or newer
 - **Xcode Command Line Tools** or **Homebrew GCC 13+**
 - **Python 3.8+** with matplotlib for visualization
@@ -62,10 +62,10 @@ sysctl hw.optional.arm.FEAT_SME2
 
 ```bash
 # Using Apple Clang (recommended for M4)
-clang -arch arm64 -march=armv9-a+sme2 -O3 -o sme_matmul sme_matmul_complete.c -lm
+clang -arch arm64 -march=native+sme2 -O3 -o sme_matmul sme_matmul_complete.c -lm
 
 # Or using Homebrew GCC
-gcc-13 -march=armv9-a+sme2 -O3 -o sme_matmul sme_matmul_complete.c -lm
+gcc-13 -march=native+sme2 -O3 -o sme_matmul sme_matmul_complete.c -lm
 
 # Run the benchmark (default: 256×256×256 matrices)
 ./sme_matmul
@@ -77,7 +77,7 @@ gcc-13 -march=armv9-a+sme2 -O3 -o sme_matmul sme_matmul_complete.c -lm
 ### Compilation Flags Explained
 
 - `-arch arm64`: Target ARM64 architecture (Apple Silicon)
-- `-march=armv9-a+sme2`: Enable ARMv9-A architecture with SME2 extensions
+- `-march=native+sme2`: Enable ARMv9-A architecture with SME2 extensions
 - `-O3`: Maximum optimization level
 - `-lm`: Link math library
 
@@ -183,13 +183,6 @@ The implementation shows excellent scaling characteristics:
 # Verify SME2 support on your Mac
 sysctl hw.optional.arm.FEAT_SME2
 
-# If the command returns 0 or doesn't exist:
-# - M4 chips support SME2
-# - M3 Pro/Max/Ultra support SME2  
-# - M3 base does NOT support SME2
-# - M2 and M1 do NOT support SME2
-```
-
 ### Compilation Errors
 ```bash
 # If you get "unknown architecture" error:
@@ -217,18 +210,6 @@ sudo powermetrics --samplers smc | grep -i "CPU die temperature"
 - [ARM C Language Extensions (ACLE)](https://github.com/ARM-software/acle)
 - [Apple Silicon Guide](https://developer.apple.com/documentation/apple-silicon)
 - [ARM SVE and SME Programming Guide](https://developer.arm.com/documentation/102107/latest/)
-
-## 🌟 Performance Comparison
-
-### Across Different Apple Silicon
-
-| Chip | SME2 Support | Typical Speedup | Peak GFLOPS |
-|------|--------------|-----------------|-------------|
-| M1 | ❌ No | N/A | N/A |
-| M2 | ❌ No | N/A | N/A |
-| M3 | ❌ No | N/A | N/A |
-| M3 Pro/Max/Ultra | ✅ Yes | ~400-450× | ~1200-1350 |
-| M4 | ✅ Yes | **~500×** | **~1450** |
 
 ## 📝 License
 
